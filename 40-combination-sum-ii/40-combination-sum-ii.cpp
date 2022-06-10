@@ -2,13 +2,17 @@ class Solution {
 public:
   void help(vector<int> &arr, int t, vector<int> &temp, int idx,
             vector<vector<int>> &ans) {
-      
-    // if (idx >= arr.size()) {
-      if (!t){ 
+
+    if (!t) {
+      ans.push_back(temp);
+      return;
+    }
+
+    if (idx >= arr.size()) {
+      if (!t)
         ans.push_back(temp);
-        return;
-      }
-    // }
+      return;
+    }
 
     if (t < 0)
       return;
@@ -27,7 +31,7 @@ public:
       temp.pop_back();
     }
   }
-    
+
   vector<vector<int>> combinationSum2(vector<int> &candidates, int target) {
     vector<vector<int>> ans;
     vector<int> temp;

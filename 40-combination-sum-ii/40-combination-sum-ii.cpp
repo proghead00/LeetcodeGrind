@@ -8,13 +8,7 @@ public:
       return;
     }
 
-    if (idx >= arr.size()) {
-      if (!t)
-        ans.push_back(temp);
-      return;
-    }
-
-    if (t < 0)
+    if (t < 0) 
       return;
 
     for (int i = idx; i < arr.size(); i++) {

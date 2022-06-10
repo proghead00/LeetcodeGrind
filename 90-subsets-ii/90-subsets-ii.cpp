@@ -3,9 +3,19 @@ public:
   void help(vector<vector<int>> &ans, vector<int> &nums, int idx,
             vector<int> &temp) {
 
+    // we don't return since we need to move till the end of line
+      
+    // WRONG:
+    // if(idx >= nums.size()){
+    // ans.push_back(temp);
+    //       return;
+    // }
+
+    // CORRECT:
     ans.push_back(temp);
 
     for (int i = idx; i < nums.size(); i++) {
+
       if (i > idx and nums[i] == nums[i - 1])
         continue;
 

@@ -34,7 +34,7 @@ public:
       temp[i] = s;
 
     bitset<9> row; // max row = n<=9
-    bitset<17> d1; // 2*n-1 => max
+    bitset<17> d1; // 2*n-1 => max ==> 2*9 - 1 = 17
     bitset<17> d2;
 
     fill(0, ans, temp, row, d1, d2, n);

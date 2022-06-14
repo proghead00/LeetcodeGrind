@@ -5,8 +5,8 @@ public:
   int help(vector<vector<int>> &triangle, int i, int j,
            vector<vector<int>> &dp) {
 
-    if (i == triangle.size() - 1)
-      return triangle[(triangle.size())-1][j];
+    if (i == triangle.size())
+      return 0;
 
     if (dp[i][j] != INT_MAX)
       return dp[i][j];

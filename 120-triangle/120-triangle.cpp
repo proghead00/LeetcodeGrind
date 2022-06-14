@@ -8,7 +8,7 @@ public:
     if (i == triangle.size())
       return 0;
 
-    if (dp[i][j] != INT_MAX)
+    if (dp[i][j] != -1)
       return dp[i][j];
 
     int ans =
@@ -20,7 +20,7 @@ public:
 
   int minimumTotal(vector<vector<int>> &triangle) {
     vector<vector<int>> dp(triangle.size(),
-                           vector<int>(triangle.size(), INT_MAX));
+                           vector<int>(triangle.size(), -1));
     return help(triangle, 0, 0, dp);
   }
 };

@@ -16,7 +16,7 @@ public:
   Node *root;
   Trie() { root = new Node('\0'); }
 
-  int insert(string word) {
+  void insert(string word, int &ans) {
     Node *temp = root;
     reverse(word.begin(), word.end());
 
@@ -30,11 +30,8 @@ public:
       temp = temp->mp[w];
     }
     temp->isTerminal = true;
-
     if (f)
-      return word.size() + 1;
-    else
-      return 0;
+      ans += word.size() + 1;
   }
 };
 
@@ -49,7 +46,7 @@ public:
          [](string a, string b) { return a.size() > b.size(); });
 
     for (string w : words)
-      ans += t.insert(w);
+      t.insert(w, ans);
 
     return ans;
   }

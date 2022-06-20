@@ -16,9 +16,8 @@ public:
     Node *temp = root;
     reverse(word.begin(), word.end());
 
-    // taking a flag so that i can keep track of whether the word is inserted or
-    // ignored
-    // if f=1 in the end, add the length of the word to ans
+    // taking a flag so that i can keep track of whether the word is inserted or ignored
+    // if f = 1 (word is inserted) in the end, add the length of the word to ans
 
     int f = 0;
     for (char w : word) {
@@ -44,15 +43,16 @@ public:
     Trie t;
     int ans = 0;
 
-    // "me", time" ==> if i don't sort it, i'll have both "me" and "time"
-    // inserted and eventually would get wrong ans
+    // "me", time" ==> if i don't sort it, i'll have both "me" and "time" inserted and eventually would get wrong answer
     sort(words.begin(), words.end(), cmp);
+
+    // OR:
     // sort(words.begin(), words.end(),
     //      [](string a, string b) { return a.size() > b.size(); });
 
     for (string w : words)
       t.insert(w, ans);
-
+      
     return ans;
   }
 };

@@ -20,9 +20,10 @@ public:
           bricks += pq.top();
           pq.pop();
           pq.push(diff);
-          bricks -= diff;
+          bricks -= diff; // using bricks to replace ladders
         }
-        ladders--;
+        ladders--; // since we can use one ladder for any height, we are using
+                   // the ladder instead of bricks (replacing them)
       } else
         break;
     }

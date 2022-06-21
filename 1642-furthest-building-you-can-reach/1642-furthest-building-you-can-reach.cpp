@@ -1,32 +1,51 @@
 class Solution {
 public:
   int furthestBuilding(vector<int> &heights, int bricks, int ladders) {
-    int i = 0;
+
+    // max heap
     priority_queue<int> pq;
 
-    for (i; i < heights.size() - 1; i++) {
-      if (heights[i] >= heights[i + 1])
+    //  first fill up with bricks (until we can)
+    for (int i = 0; i < heights.size() - 1; i++) {
+      int diff = heights[i + 1] - heights[i];
+      if (diff <= 0)
         continue;
 
-      int diff = heights[i + 1] - heights[i];
-
+      // utilise all the bricks first
       if (diff <= bricks) {
         bricks -= diff;
         pq.push(diff);
       }
-      // no sufficient bricks are left but we got ladders
+
+      // cannot use bricks for this position, so try to use ladders (no boundary
+      // of length ==> here, it's always guranteed to have 'diff' length)
+
       else if (ladders) {
+
+        // check if we can replace bricks (used before) with ladders
+
         if (pq.size() and pq.top() > diff) {
-          bricks += pq.top();
+          // cuz if pq.top() < diff, there's no point in using them
+          // either cuz
+          // we cannot fill up
+          bricks += pq.top(); // we recover the bricks used previously
           pq.pop();
           pq.push(diff);
-          bricks -= diff; // using bricks to replace ladders
+          bricks -= diff; // use bricks here
+
+          ladders--; // put ladder in the previous position
         }
-        ladders--; // since we can use one ladder for any height, we are using
-                   // the ladder instead of bricks (replacing them)
-      } else
-        break;
+
+        // when we MUST use ladders cuz we don't have enough bricks
+        else
+          ladders--;
+      }
+
+      else {
+        // neither bricks nor ladders are available
+        return i;
+      }
     }
-    return i;
+    return heights.size() - 1;
   }
 };

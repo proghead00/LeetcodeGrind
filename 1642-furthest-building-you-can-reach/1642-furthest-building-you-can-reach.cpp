@@ -5,29 +5,29 @@ public:
     // max heap
     priority_queue<int> pq;
 
-    //  first fill up with bricks (until we can)
+
     for (int i = 0; i < heights.size() - 1; i++) {
       int diff = heights[i + 1] - heights[i];
       if (diff <= 0)
         continue;
 
-      // utilise all the bricks first
+      // utilise all the bricks first (until we can)
+
       if (diff <= bricks) {
         bricks -= diff;
         pq.push(diff);
       }
 
-      // cannot use bricks for this position, so try to use ladders (no boundary
-      // of length ==> here, it's always guranteed to have 'diff' length)
+
+      // if we cannot use bricks for this position, so we try to use ladders (no boundary of length ==> here, it's always guranteed to have 'diff' length)
 
       else if (ladders) {
 
         // check if we can replace bricks (used before) with ladders
 
         if (pq.size() and pq.top() > diff) {
-          // cuz if pq.top() < diff, there's no point in using them
-          // either cuz
-          // we cannot fill up
+          // cuz if pq.top() < diff, there's no point in using them either cuz we cannot fill up
+
           bricks += pq.top(); // we recover the bricks used previously
           pq.pop();
           pq.push(diff);

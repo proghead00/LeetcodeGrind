@@ -1,24 +1,26 @@
 class Solution {
 public:
 
-  int help(vector<int> &nums, vector<int> &dp, int idx) {
-    if (idx >= nums.size()) return 0; // can't do return dp[idx] since idx can be outta bounds
+  int help(vector<int> &nums, vector<int> &dp, int n) {
+    dp[n] = dp[n + 1]  = 0;
 
-    if (dp[idx] != -1) return dp[idx];
+    for (int i = nums.size() - 1; i >= 0; i--) {
 
-    int pick = nums[idx] + help(nums, dp, idx + 2);
+      int pick = nums[i] + dp[i + 2];
+      int ignore = 0 + dp[i + 1];
 
-    int ignore = 0 + help(nums, dp, idx + 1);
+      dp[i] = max(pick, ignore);
 
-    return dp[idx] = max(pick, ignore);
-
+    }
+    return dp[0];
   }
+
 
   int rob(vector<int>& nums) {
 
     int n = nums.size();
-    vector<int> dp(n + 1, -1);
+    vector<int> dp(n + 2, -1);
 
-    return help(nums, dp, 0);
+    return help(nums, dp, n);
   }
 };

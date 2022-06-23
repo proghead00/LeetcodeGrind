@@ -1,29 +1,29 @@
 class Solution {
 public:
 
-  int help(vector<int> &nums, vector<int> &dp) {
-    dp[0] = nums[0];
+  int help(vector<int> &nums) {
+    int prev1 = nums[0];
+    int prev2 = 0;
 
     for (int i = 1; i < nums.size(); i++) {
 
       int pick = nums[i];
-      if (i >= 2) pick += dp[i - 2];
+      if (i >= 2) pick += prev2;
 
-      int ignore = 0 + dp[i - 1];
+      int ignore = 0 + prev1;
 
-      dp[i] = max(pick, ignore);
+      int curAns = max(pick, ignore);
+      prev2 = prev1;
+      prev1 = curAns;
 
     }
 
-    return dp[nums.size() - 1];
-
+    return prev1;
   }
 
   int rob(vector<int>& nums) {
 
     int n = nums.size();
-    vector<int> dp(n, -1);
-
-    return help(nums, dp);
+    return help(nums);
   }
 };

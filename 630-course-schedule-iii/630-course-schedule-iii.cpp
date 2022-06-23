@@ -4,7 +4,7 @@ public:
     priority_queue<int> pq;
 
     sort(courses.begin(), courses.end(), [](auto a, auto b) {
-      return a[1] < b[1];
+      return (a[1] != b[1]) ? a[1] < b[1]: a[0] > b[0];
     });
 
     int tt = 0;

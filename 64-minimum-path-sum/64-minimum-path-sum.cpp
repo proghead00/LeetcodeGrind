@@ -8,6 +8,9 @@ public:
     if (i < 0 or j < 0)
       return 1e9;
 
+    // NOTE: BE AWARE OF PLACING ARRAYS AT THE FRONT
+    // WHEN i IS OUTTA BOUNDS, IT'LL THROW AN ERROR
+    // HENCE, PUT DP CHECK AFTER THE ABOVE CONDITIONS
     if (dp[i][j] != 1e9)
       return dp[i][j];
 

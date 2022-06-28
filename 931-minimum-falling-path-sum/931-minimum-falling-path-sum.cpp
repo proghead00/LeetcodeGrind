@@ -25,8 +25,8 @@ public:
             }
         }
 
-        int mn = dp[row - 1][0];
-        for (int k = 1; k < col; k++) mn = min(mn, dp[row - 1][k]);
+        int mn = 1e9;
+        for (int k = 0; k < col; k++) mn = min(mn, dp[row - 1][k]);
 
         return mn;
     }

@@ -1,29 +1,33 @@
 class Solution {
 public:
-    int help(vector<vector<int>> &matrix, int i, int j, vector<vector<int>>&dp) {
-
-        if (j < 0) return 1e9;
-        if (j >= matrix[0].size()) return 1e9;
-        if (i == 0) return dp[i][j] = matrix[i][j];
-
-        if (dp[i][j] != 1e9) return dp[i][j];
-
-        int up, ld, rd;
-        up = help(matrix, i - 1, j, dp);
-        ld = help(matrix, i - 1, j - 1, dp);
-        rd = help(matrix, i - 1, j + 1, dp);
-        return dp[i][j] = matrix[i][j] + min({up, ld, rd});
-    }
 
     int minFallingPathSum(vector<vector<int>>& matrix) {
 
         int row = matrix.size();
+        int col = matrix[0].size();
 
-        vector<vector<int>> dp(row, vector<int> (row, 1e9));
-        int ans = INT_MAX;
-        for (int k = 0; k < matrix[0].size(); k++)
-            ans = min(ans, help(matrix, row - 1, k, dp))  ;
+        vector<vector<int>> dp(row, vector<int>(col, 0));
 
-        return ans;
+        for (int j = 0; j < col; j++)
+            dp[0][j] = matrix[0][j];
+
+
+        for (int i = 1; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                int ld = 1e9, rd = 1e9;
+                int down = matrix[i][j] + dp[i - 1][j];
+
+                if (j - 1 >= 0) ld = matrix[i][j] + dp[i - 1][j - 1];
+                if (j + 1 < col) rd = matrix[i][j] + dp[i - 1][j + 1];
+
+                dp[i][j] = min({down, ld, rd});
+
+            }
+        }
+
+        int mn = dp[row - 1][0];
+        for (int k = 1; k < col; k++) mn = min(mn, dp[row - 1][k]);
+
+        return mn;
     }
 };

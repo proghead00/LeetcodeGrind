@@ -5,9 +5,9 @@ public:
     if (head == NULL or head->next == NULL) {
       return head;
     }
-    ListNode *next = head->next;
-    head->next = swapPairs(next->next);
-    next->next = head;
-    return next;
+    ListNode *nx = head->next;
+    head->next = swapPairs(nx->next);
+    nx->next = head;
+    return nx;
   }
 };

@@ -5,7 +5,7 @@ public:
       ans.push_back(nums);
       return;
     }
-    set<int> s;
+    unordered_set<int> s;
 
     for (int i = idx; i < nums.size(); i++) {
       if (s.find(nums[i]) != s.end()) continue;

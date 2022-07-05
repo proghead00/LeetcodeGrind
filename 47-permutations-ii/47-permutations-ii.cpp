@@ -5,7 +5,7 @@ public:
       ans.push_back(nums);
       return;
     }
-    unordered_set<int> s;
+    set<int> s;
 
     for (int i = idx; i < nums.size(); i++) {
       if (s.find(nums[i]) != s.end()) continue;
@@ -19,7 +19,7 @@ public:
 
   vector<vector<int>> permuteUnique(vector<int>& nums) {
     vector<vector<int>> ans;
-    sort(nums.begin(), nums.end());
+    // sort(nums.begin(), nums.end());
     help(nums, ans, 0);
     return ans;
   }

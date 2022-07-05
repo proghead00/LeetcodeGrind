@@ -22,9 +22,9 @@ public:
   }
 
   string next() {
-    return ans[globalIdx++];
-    // if (globalIdx <= ans.size()) return ans[globalIdx++];
-    // else return "";
+    // return ans[globalIdx++];
+    if (globalIdx <= ans.size()) return ans[globalIdx++];
+    else return "";
   }
 
   bool hasNext() {

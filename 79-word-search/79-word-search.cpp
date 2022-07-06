@@ -22,9 +22,9 @@ public:
         bool left = help(board, word, i, j - 1, idx + 1, n, m);
         bool right = help(board, word, i, j + 1, idx + 1, n, m);
 
+        board[i][j] = ch;
         if (up or down or left or right) return true;
 
-        board[i][j] = ch;
         return false;
 
     }

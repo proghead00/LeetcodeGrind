@@ -9,13 +9,13 @@ public:
             xors[i] = xors[i - 1] ^ nums[i];
         }
 
-        int idx = 0;
-        int k = (1 << maximumBit) - 1; // (2^maximumBit-1)
+        int maxKPossible = (1 << maximumBit) - 1; // max possible value of k: 2 ^ maximumBit-1
 
+        vector<int> ans;
         for (int i = n - 1; i >= 0; i--) {
-            int curr = k & ~(xors[i]); // invert bits of (xors[i]) to maximize it
-            nums[idx++] = curr;
+            int curK = maxKPossible & ~(xors[i]); // invert bits of (xors[i]) to maximize it
+            ans.push_back(curK);
         }
-        return nums;
+        return ans;
     }
 };

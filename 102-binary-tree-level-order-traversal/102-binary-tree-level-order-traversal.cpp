@@ -2,36 +2,32 @@ class Solution {
 public:
 	vector<vector<int>> levelOrder(TreeNode* root) {
 		vector<vector<int>> ans;
+		queue<TreeNode*> q;
+
 		if (!root) return ans;
 
-		// null denotes barrier
-		queue<TreeNode* > q;
-		q.push(root);
-		q.push(NULL);
-
 		vector<int> temp;
-
+		q.push(root);
 		while (!q.empty()) {
-			TreeNode* ff = q.front();
-			q.pop();
+			int sz = q.size();
+			for (int i = 0; i < sz; i++) {
 
-			if (ff) {
-				// I wont push NULL in the vector ofc:: NULL will be inside QUEUE (TreeNode* data type)
+				TreeNode* ff = q.front();
+				q.pop();
+
+				// insert the children
+				if (ff->left)
+					q.push(ff->left);
+
+				if (ff->right)
+					q.push(ff->right);
+
 				temp.push_back(ff->val);
-				if (ff->left) q.push(ff->left);
-				if (ff->right) q.push(ff->right);
 			}
-			else {
-				// cur node is NULL, so we push the previous NOT NULLs into final ans
-				ans.push_back(temp);
-				temp.clear();
-
-				// corner case
-				if (!q.empty())
-					q.push(NULL);
-			}
-
+			ans.push_back(temp);
+            temp.clear();
 		}
+
 		return ans;
 	}
 };

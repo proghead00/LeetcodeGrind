@@ -26,7 +26,7 @@ public:
 		vector<int> temp;
 		for (auto &x : mp) {
 			for (auto &y : x.second) {
-				for (auto &k : y.second) temp.push_back(k);
+				for (auto &z : y.second) temp.push_back(z);
 			}
 			ans.push_back(temp);
 			temp.clear();

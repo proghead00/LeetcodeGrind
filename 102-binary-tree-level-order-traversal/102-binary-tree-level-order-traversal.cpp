@@ -10,7 +10,8 @@ public:
 		q.push(root);
 		while (!q.empty()) {
 			int sz = q.size();
-			for (int i = 0; i < sz; i++) {
+			
+            for (int i = 0; i < sz; i++) {
 
 				TreeNode* ff = q.front();
 				q.pop();

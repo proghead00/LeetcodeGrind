@@ -9,8 +9,8 @@ public:
     int help(int r, int c, int i, int j, int maxMove, vector<vector<vector<int>>> &dp) {
         // currently I am at (i, j)
 
-        if (maxMove < 0) return 0;
         if (i < 0 or i >= r or j < 0 or j >= c) return 1;
+        if (maxMove == 0) return 0;
 
         if (dp[i][j][maxMove] != -1) return dp[i][j][maxMove];
         int ans = 0;

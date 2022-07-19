@@ -18,9 +18,10 @@ public:
         skip = help(coins, target, idx - 1, dp);
 
         if (coins[idx] <= target)
-            pick = 1 + help(coins, target - coins[idx], idx, dp); // keeping idx as it is
-        // since I have infinite
-        // supply for the same
+
+            // pick that coin and move on for further calls (keep idx fixed since I can take infinite ones of that denomination)
+            pick = 1 + help(coins, target - coins[idx], idx, dp); // keeping idx as it is since I have infinite for the same
+
 
         return dp[target][idx] = min(pick, skip);
     }

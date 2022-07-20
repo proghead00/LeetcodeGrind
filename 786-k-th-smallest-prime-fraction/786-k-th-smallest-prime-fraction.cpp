@@ -1,24 +1,27 @@
+
 class Solution {
 public:
-  vector<int> kthSmallestPrimeFraction(vector<int> &arr, int k) {
-    priority_queue<pair<double, pair<int, int>>> pq; // fractiontion, (i, j)
+    vector<int> kthSmallestPrimeFraction(vector<int>& arr, int k) {
+        int n = arr.size();
 
-    for (int i = 0; i < arr.size() - 1; i++) {
-      for (int j = i + 1; j < arr.size(); j++) {
+        priority_queue<pair<double, pair<int, int>>, vector<pair<double, pair<int, int>>>, greater<>> pq;
 
-        double fraction = (double)arr[i] / (double)arr[j];
+        for (int i = 0; i < n - 1; i++)
+            pq.push({(double) arr[i] / arr[n - 1], {i, n - 1}});
 
-        if (pq.size() < k) {
-          pq.push({fraction, {arr[i], arr[j]}});
-        } else {
-          if (pq.top().first >
-              fraction) { // since min heap, so if top is greater, then pop
+        int i, j;
+
+        while (k--) {
+            auto tp = pq.top();
             pq.pop();
-            pq.push({fraction, {arr[i], arr[j]}});
-          }
+
+            i = tp.second.first;
+            j = tp.second.second;
+
+            if (i < j - 1) pq.push({(double) arr[i] / arr[j - 1], {i, j - 1}});
         }
-      }
+
+        return {arr[i], arr[j]};
     }
-    return {pq.top().second.first, pq.top().second.second};
-  }
 };
+

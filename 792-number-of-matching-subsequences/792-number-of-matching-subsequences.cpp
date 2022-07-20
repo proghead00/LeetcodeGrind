@@ -1,6 +1,9 @@
 class Solution {
 public:
-    bool check(string &og, string w) {
+    bool check(const string &og, const string w) {
+
+        // O(max(og, w)) => O(og)
+
         int i = 0, j = 0;
         while (i < og.size() and j < w.size()) {
             if (og[i] == w[j]) i++, j++;
@@ -14,13 +17,14 @@ public:
     int numMatchingSubseq(string s, vector<string>& words) {
         unordered_map<string, int> mp;
 
-        for (int i = 0; i < words.size(); i++) {
-            mp[words[i]]++;
-        }
+        // O(w)
+        for (int i = 0; i < words.size(); i++) mp[words[i]]++;
 
-        int ans = 0 ;
+        int ans = 0;
+
         for (auto pp : mp)
-            if (check(s, pp.first)) ans += pp.second;
+            // O(w * max(s, w)) => O(w * s)
+            if (check(s, pp.first)) ans += pp.second; // for multiple occurences of words
 
         return ans;
     }

@@ -14,10 +14,6 @@ public:
             int prev = -1;
             
             for (int i = 0; i < w.size(); i++) {
-
-                if (mp.count(w[i]) == 0) {
-                    break; // if the character is not at all present in s, move on to the next string in the vector
-                }
                 int idx = upper_bound(mp[w[i]].begin(), mp[w[i]].end(), prev) - mp[w[i]].begin();
 
                 if (idx == mp[w[i]].size()) break;

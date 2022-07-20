@@ -1,39 +1,27 @@
 class Solution {
-
-	int ans = 0;
-
-	bool isSubSeq(string &s,string t){
-
-		int n = s.size();
-		int m = t.size();
-
-		int i = 0;
-		int j = 0;
-
-		for(int i = 0; i < n and j < m; i++){
-			if(s[i] == t[j]) j++;
-		}
-
-		if(j == m) return true;
-		else return false;
-	}
-
 public:
-	int numMatchingSubseq(string s, vector<string>& words) {
+    bool check(string &og, string w) {
+        int i = 0, j = 0;
+        while (i < og.size() and j < w.size()) {
+            if (og[i] == w[j]) i++, j++;
+            else i++;
+        }
 
-		int n = words.size();
+        if (j == w.size()) return true;
+        else return false;
+    }
 
-		map<string,int> m;
+    int numMatchingSubseq(string s, vector<string>& words) {
+        unordered_map<string, int> mp;
 
-		for(int i = 0; i < n; i++){
-			m[words[i]]++;
-		}
+        for (int i = 0; i < words.size(); i++) {
+            mp[words[i]]++;
+        }
 
-		for(auto it : m){
-			if(isSubSeq(s,it.first)) ans += it.second;
-		}
+        int ans = 0 ;
+        for (auto pp : mp)
+            if (check(s, pp.first)) ans += pp.second;
 
-		return ans;
-
-	}
+        return ans;
+    }
 };

@@ -15,6 +15,8 @@ public:
           pq.push({ sum, {nums1[i], nums2[j]}});
 
         else if (pq.top().first > sum) { // since I am maintaing a max heap, top gives me the max
+
+          // pop and move on, get someone better lol
           pq.pop();
           pq.push({sum, {nums1[i], nums2[j]}});
         }

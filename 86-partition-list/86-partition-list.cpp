@@ -25,8 +25,8 @@ public:
             move = move->next;
         }
 
-        greaterNode->next = NULL;
         lessNode->next = t2->next;
+        greaterNode->next = NULL;
 
         return t1->next;
     }

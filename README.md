@@ -1,10 +1,10 @@
-# #SdeSheetChallenge
+# Leetcode Grind
  
-<h2> This repo keeps a track of the progress as asked by Striver (SDE Sheet Challenge)
+<h2> This repo keeps a track of the progress of me grinding LC questions everyday
  
 
   
-<h3> This has all the Leetcode problems that I am solving during this challenge (and beyond) with proper Problem Statements and Solutions well documented  
+<h3> The Problem Statements and the Solutions are well-documented  
 
 &nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;

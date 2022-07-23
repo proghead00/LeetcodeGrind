@@ -1,35 +1,42 @@
 class Solution {
 public:
 
-    bool dfs(vector<vector<int>>& graph, vector<int> &colorVis, int cur, int parentColor) {
+  vector<int> colorVisited;
 
-        colorVis[cur] = 1 - parentColor;
+  // COLOR:
+  // 0 -> not visited; 1-> visisted and colored 1; 2-> visited and colored 2
 
-        for (auto x : graph[cur]) {
+  bool oddCycle(vector<vector<int>>& graph, int cur, int par, int col) {
 
-            if (colorVis[x] == -1) {
-                if (dfs(graph, colorVis, x, colorVis[cur]) == false) return false;
-            }
+    colorVisited[cur] = col;
 
-            else if (colorVis[x] == colorVis[cur])
-                return false;
-        }
+    for (auto nbr : graph[cur]) {
+      if (!colorVisited[nbr]) {
+        if (oddCycle(graph, nbr, cur, 3 - col))
+          return true;
+      }
 
+      else if (nbr != par and col == colorVisited[nbr])
         return true;
     }
 
+    return false;
 
-    bool isBipartite(vector<vector<int>>& graph) {
-        int n = graph.size();
-        vector<int> colorVis(n, -1);
+  }
 
-        for (int i = 0; i < n; i++) {
-            if (colorVis[i] == -1) {
-                if (!dfs(graph, colorVis, i, 0))
-                    return false;
-            }
-        }
+  bool isBipartite(vector<vector<int>>& graph) {
+    // if odd length cycle is there, it's NOT a bipartite
 
-        return true;
+    colorVisited.resize(graph.size() + 1);
+
+    for (int i = 0; i < graph.size(); i++) {
+      if (!colorVisited[i])
+        if (oddCycle(graph, i, -1, 1))
+          return false;
     }
+
+    return true;
+  }
 };
+
+

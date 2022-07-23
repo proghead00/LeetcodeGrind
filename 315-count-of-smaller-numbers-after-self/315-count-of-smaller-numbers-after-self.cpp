@@ -1,68 +1,51 @@
 class Solution {
 public:
-    
-    void merge(vector<int> &count, vector<pair<int, int>> &v, int left, int mid, int right){
-        vector<pair<int,int>> temp(right - left + 1);
-        int i=left;
-        int j=mid+1;
-        int k=0;
-        
-        while(i<=mid && j<=right){
-            
-            if(v[i].first <= v[j].first){
-                temp[k++] = v[j++];
+
+    void join(int s, int e, int mid, vector<int> &cnt, vector<pair<int, int>> &numsPairs) {
+
+        int i = s, j = mid + 1;
+
+        vector<pair<int, int>> tempPairs(e - s + 1);
+
+        int k =  0;
+        while (i <= mid and j <= e) {
+            if (numsPairs[i].first <= numsPairs[j].first) {
+                tempPairs[k++] = numsPairs[j++];
             }
-            
-            else{
-                
-                count[v[i].second] += right-j+1;
-                temp[k++] = v[i++];
-                
+            else {
+                cnt[numsPairs[i].second] += e - j + 1;
+                tempPairs[k++] = numsPairs[i++];
             }
-            
+
         }
-        
-        
-        while(i<=mid){
-            temp[k++] = v[i++];
-        }
-        
-        while(j<=right){
-            temp[k++] = v[j++];
-        }
-        
-        for(int i=left;i<=right;i++){
-            v[i] = temp[i-left]; 
-        }
-        
+
+        while (i <= mid) tempPairs[k++] =  numsPairs[i++];
+
+        while (j <= e) tempPairs[k++] = numsPairs[j++];
+
+        for (int kk = s; kk <= e; kk++) numsPairs[kk] = tempPairs[kk - s];
     }
-    
-    void mergeSort(vector<int> &count, vector<pair<int,int>> &v, int left, int right){
-        
-        
-        if(left<right){
-            int mid = left + (right-left)/2;
-            mergeSort(count, v, left, mid);
-            mergeSort(count, v, mid+1, right);
-            merge(count, v, left, mid, right);
-        }
-        
+
+    void split(int s, int e, vector<int> &cnt, vector<pair<int, int>> &numsPairs) {
+        if (s >= e) return; // since I need to split UNTIL there's only one element that remains
+
+        int mid = (s + e) / 2 ;
+        split(s, mid, cnt, numsPairs);
+        split(mid + 1, e, cnt, numsPairs);
+
+        join(s, e, mid, cnt, numsPairs);
     }
-    
+
     vector<int> countSmaller(vector<int>& nums) {
-        int n = nums.size();
-        vector<pair<int,int>> v(n);
-        for(int i=0;i<n;i++){
-            pair<int, int> p;
-            p.first = nums[i];
-            p.second = i;
-            v[i] = p;
-        }
-        
-        
-        vector<int> count(n, 0);
-        mergeSort(count, v, 0, n-1);
-        return count;
-        
+
+        vector<pair<int, int>> numsPairs(nums.size());
+        vector<int> cnt(nums.size(), 0);
+
+        for (int i = 0; i < nums.size(); i++)
+            numsPairs[i] = {nums[i], i}; // need i for storing values in cnt vector
+
+        split(0, nums.size() - 1, cnt, numsPairs);
+
+        return cnt;
     }
 };

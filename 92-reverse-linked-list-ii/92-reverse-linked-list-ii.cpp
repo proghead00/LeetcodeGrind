@@ -1,29 +1,43 @@
 
 class Solution {
 public:
-  ListNode* reverseBetween(ListNode* head, int left, int right) {
-
-    ListNode *move = head;
-    int cnt = 1;
-    while (cnt < left) {
-      move = move->next;
-      cnt++;
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        
+        if(!head) return NULL;
+        
+        ListNode* dummy = new ListNode(-1);
+        dummy->next = head;
+        
+        ListNode* beforeLeftPtr = dummy;
+        ListNode* leftPtr = head;
+        
+        for(int i = 0; i < left - 1; i++){
+            beforeLeftPtr = leftPtr;
+            leftPtr = leftPtr->next;
+        }
+        
+        // simple reverse
+        ListNode* prev = beforeLeftPtr;
+        ListNode* cur = leftPtr;
+        ListNode* nx;
+        for(int i = left; i <= right; i++){
+            nx = cur->next;
+            cur->next = prev;
+            prev = cur;
+            cur = nx;
+        }
+        
+        // example: 
+        // originally: 1 -> 2 -> 3 -> 4 -> 5 [left = 2, right = 4]
+        // after simple reverse: 1 -> 4 -> 3 -> 2 -> NULL (5)
+        // but I need: 1 -> 4 -> 3 -> 2 -> 5
+        // hence I need to connect 1 with 4 and 2 with 5 now
+        
+        // connections:
+        beforeLeftPtr->next = prev;
+        leftPtr->next = nx;
+        
+        return dummy->next;
+        
     }
-
-    stack <int> s;
-    ListNode *temp = move;
-    while (cnt <= right) {
-      s.push(move->val);
-      move = move->next;
-      cnt++;
-    }
-    
-    // just pop and swap bruh
-    while (!s.empty()) {
-      temp->val = s.top();
-      s.pop();
-      temp = temp->next;
-    }
-    return head;
-  }
 };

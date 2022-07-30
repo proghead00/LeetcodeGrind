@@ -10,8 +10,7 @@ public:
                 swap(nums[i], nums[idx]);
                 help(nums, ans, idx + 1);
                 
-                // backtrack
-                // swap(nums[idx], nums[i]);
+                // No need to swap back since I am passing nums as value, and not by reference
             }
     }
     

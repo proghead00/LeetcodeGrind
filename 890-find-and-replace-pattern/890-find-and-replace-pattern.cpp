@@ -1,38 +1,27 @@
 class Solution {
 public:
-string getPattern(string pattern){
+    bool help(string words, string pattern) {
+        unordered_map<char, char> mp;
+        for (int i = 0; i < words.size(); i++) {
+            if (mp.count(words[i]) == 0) {
+                mp[words[i]] = pattern[i];
+            }
+            else {
+                if (mp[words[i]] != pattern[i]) return false;
+            }
+        }
 
-    string ans;
-    int j=0;
-    
-    map<char,char> mp;
-    
-    for(int i=0;i<pattern.size();i++){
-        if(mp.find(pattern[i])==mp.end()){
-            mp[pattern[i]]='a'+j; 
-            j++;
-        }
-        
-        ans.push_back(mp[pattern[i]]);
-        
+        return true;
     }
-    
-    return ans;
-    
-}
-vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
-    
-    string pat=getPattern(pattern);
-    
-    vector<string> ans;
-    
-    for(int i=0;i<words.size();i++){
-        string p=getPattern(words[i]);
-        if(p==pat){
-            ans.push_back(words[i]);
+
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+        vector<string> ans;
+
+        for (string w : words) {
+            bool bothways = help(w, pattern) & help(pattern, w);
+            if (bothways) ans.push_back(w);
         }
+
+        return ans;
     }
-    
-    return ans;
-}
 };

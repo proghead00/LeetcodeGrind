@@ -34,6 +34,8 @@ public:
         // but I need: 1 -> 4 -> 3 -> 2 -> 5
         // hence I need to connect 1 with 4 and 2 with 5 now
         
+        // prev points to 4 and nx points to 5
+        
         // connections:
         beforeLeftPtr->next = prev;
         leftPtr->next = nx;

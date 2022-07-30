@@ -11,7 +11,7 @@ public:
         ListNode* beforeLeftPtr = dummy;
         ListNode* leftPtr = head;
         
-        for(int i = 0; i < left - 1; i++){
+        for(int i = 0; i < left - 1; i++){ // NB: IT'S left - 1 
             beforeLeftPtr = leftPtr;
             leftPtr = leftPtr->next;
         }

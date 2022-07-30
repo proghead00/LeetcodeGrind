@@ -7,7 +7,7 @@ public:
     }
 
     for (int i = idx; i < nums.size(); i++) {
-      if (i!=idx and nums[i] == nums[idx]) continue; // NB: nums[idx] is compared with nums[idx]
+      if (i!=idx and nums[i] == nums[idx]) continue; // NB: nums[idx] is compared with nums[i]
       swap(nums[idx], nums[i]);
       help(nums, ans, idx + 1);
     }

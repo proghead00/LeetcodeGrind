@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void help(vector<int> &nums, vector<vector<int>> &ans, int idx){
+    void help(vector<int> nums, vector<vector<int>> &ans, int idx){
             if(idx == nums.size()){
                 ans.push_back(nums);
                 return;
@@ -11,7 +11,7 @@ public:
                 help(nums, ans, idx + 1);
                 
                 // backtrack
-                swap(nums[idx], nums[i]);
+                // swap(nums[idx], nums[i]);
             }
     }
     

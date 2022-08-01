@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //  CHECK LEETCODE NOTE ON THE RIGHT!!!
     
     bool isPal(string &s, int i, int j){
 

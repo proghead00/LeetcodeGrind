@@ -11,7 +11,7 @@ public:
         return true;
     }
     
-    void help(string &s, vector<string> temp, vector<vector<string>> &ans, int idx){
+    void help(string &s, vector<string> &temp, vector<vector<string>> &ans, int idx){
     
         if(idx == s.size()){
             ans.push_back(temp);

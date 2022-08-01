@@ -1,3 +1,4 @@
+
 class Solution {
 public:
     int characterReplacement(string s, int k) {
@@ -6,7 +7,7 @@ public:
         unordered_map<char, int> mp;
 
         int l = 0, r = 0;
-        int mx = 0;
+        int mxFreq = 0;
         int windowLength = 0;
         int ans = windowLength;
 
@@ -17,9 +18,9 @@ public:
             // at every step I increase r, so rightwise it increases
             // I will increase l when I find it crosses k
 
-            mx = max(mx, mp[s[r]]);
+            mxFreq = max(mxFreq, mp[s[r]]);
 
-            if (windowLength - mx <= k) {
+            if (windowLength - mxFreq <= k) {
                 // no need to move l
                 ans = max(ans, windowLength);
             }

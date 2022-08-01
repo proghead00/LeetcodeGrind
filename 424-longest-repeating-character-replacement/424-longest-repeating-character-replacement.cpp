@@ -2,6 +2,7 @@ class Solution {
 public:
     int characterReplacement(string s, int k) {
         // we move the window and check for windowLength - maxFreq <= k everytime
+        // windowLength - maxFreq is the no. of characters we need to replace
 
         unordered_map<char, int> mp;
 

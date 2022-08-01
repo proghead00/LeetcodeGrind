@@ -1,4 +1,3 @@
-
 class Solution {
 public:
     int characterReplacement(string s, int k) {
@@ -12,11 +11,13 @@ public:
         int ans = windowLength;
 
         while (r < s.size()) {
+
             mp[s[r]]++;
 
             windowLength = r - l + 1;
+
             // at every step I increase r, so rightwise it increases
-            // I will increase l when I find it crosses k
+            // I will increase l when I find windowLength - mxFreq crosses k
 
             mxFreq = max(mxFreq, mp[s[r]]);
 
@@ -26,7 +27,7 @@ public:
             }
             else {
                 // need to move l when it crosses k
-                mp[s[l]]--;
+                mp[s[l]]--; // since I am shifting l, I need to omit the presence of the current character at l
                 l++;
 
             }

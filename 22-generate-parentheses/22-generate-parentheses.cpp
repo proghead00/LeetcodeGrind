@@ -11,16 +11,13 @@ public:
 			temp.push_back('(');
 			help(n, temp, ans, open + 1, close);
 			temp.pop_back();
-
 		}
 
 		if (close < open) {
 			temp.push_back(')');
 			help(n, temp, ans, open, close + 1);
 			temp.pop_back();
-
 		}
-
 	}
 
 	vector<string> generateParenthesis(int n) {

@@ -7,9 +7,11 @@ public:
 			return;
 		}
 
-		if (open <= n - 1) {
+		if (open < n) {
 			temp.push_back('(');
 			help(n, temp, ans, open + 1, close);
+            
+            // almost forgot to BACKTRACK ughhh:
 			temp.pop_back();
 		}
 

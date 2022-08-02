@@ -1,5 +1,7 @@
 class Solution {
 public:
+    // SEE NOTE ON THE RIGHT LC
+    
     vector<int> help(string s, int start, int end) {
         vector<int> ans;
         int isNum = 1;

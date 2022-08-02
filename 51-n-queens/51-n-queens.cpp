@@ -1,43 +1,45 @@
 class Solution {
 public:
-  //   fill(0, ans, temp, row, d1, d2, n);
-  void fill(int c, vector<vector<string>> &ans, vector<string> &temp,
-            bitset<9> &row, bitset<17> &d1, bitset<17> &d2, int n) {
-    if (c == n) {
-      ans.push_back(temp);
-      return;
+    
+    void help(vector<vector<string>> &ans, int c, int n, vector<int> &ld, vector<int> &ud, vector<int> &row, vector<string> &temp){
+        
+        if(c == n){
+            ans.push_back(temp);
+            return;
+        }
+        
+        for(int r = 0; r < n; r++){
+            if(ld[r + c] or row[r] or ud[c - r + n - 1]) continue;
+            
+            ld[r + c] = 1;
+            row[r] = 1;
+            ud[c - r + n - 1] = 1;
+            temp[r][c] = 'Q';
+            
+            help(ans, c + 1, n, ld, ud, row, temp);
+            
+            ld[r + c] = 0;
+            row[r] = 0;
+            ud[c - r + n - 1] = 0;
+            temp[r][c] = '.';
+        }
+        
     }
-
-    for (int r = 0; r < n; r++) {
-      if (row[r] or d1[r + c] or d2[c - r + n - 1])
-        continue;
-
-      temp[r][c] = 'Q';
-      row[r] = 1;
-      d1[c + r] = 1;
-      d2[c - r + n - 1] = 1;
-
-      fill(c + 1, ans, temp, row, d1, d2, n);
-
-      temp[r][c] = '.';
-      row[r] = 0;
-      d1[c + r] = 0;
-      d2[c - r + n - 1] = 0;
+    
+    vector<vector<string>> solveNQueens(int n) {
+        
+        vector<vector<string>> ans;
+        
+        vector<int> ld(2*n);
+        vector<int> ud(2*n);
+        vector<int> row(n);
+        
+        string s(n, '.');
+        vector<string> temp(n);
+        for(int i = 0; i < n; i++) temp[i] = s; // every row with '.'
+        
+        help(ans, 0, n, ld, ud, row, temp);
+        
+        return ans;
     }
-  }
-
-  vector<vector<string>> solveNQueens(int n) {
-    vector<vector<string>> ans;
-    vector<string> temp(n);
-    string s(n, '.');
-    for (int i = 0; i < n; i++)
-      temp[i] = s;
-
-    bitset<9> row; // max row = n<=9
-    bitset<17> d1; // 2*n-1 => max ==> 2*9 - 1 = 17
-    bitset<17> d2;
-
-    fill(0, ans, temp, row, d1, d2, n);
-    return ans;
-  }
 };

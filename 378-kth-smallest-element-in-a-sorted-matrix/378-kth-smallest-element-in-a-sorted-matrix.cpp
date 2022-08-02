@@ -1,24 +1,23 @@
 class Solution {
 public:
-    int kthSmallest(vector<vector<int>> &matrix, int k) {
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int ans = 0;
+        
         int n = matrix.size();
-        int m = matrix[0].size();
-
-        int low = matrix[0][0];
-        int high = matrix[n - 1][m - 1];
-
-        while (low < high) {
-            int cnt = 0;
-            int mid = low + (high - low) / 2;
-
-            // check for number of elements less than mid in each row
-            for (int i = 0; i < n; i++) {
-                cnt += upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();
+        int l = matrix[0][0], h = matrix[n - 1][n - 1];
+        
+        while(l < h){
+            ans = 0;
+            int mid = l + (h - l) / 2;
+            
+            for(int i = 0; i < n; i++){
+                ans += upper_bound(matrix[i].begin(), matrix[i].end(), mid) - matrix[i].begin();
             }
-
-            if (cnt < k) low = mid + 1;
-            else if (cnt >= k) high = mid;
+            
+            if(ans < k) l = mid + 1;
+            else h = mid;
         }
-        return low;
+        
+        return l;
     }
 };

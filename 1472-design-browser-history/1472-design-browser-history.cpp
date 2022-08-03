@@ -25,15 +25,25 @@ public:
   }
 
   string back(int steps) {
-    while (steps-- and back_stack.size() >= 2) {
-      forward_stack.push(back_stack.top());
-      back_stack.pop();
+    int x = back_stack.size();
+    if (x >= steps)
+      x = steps;
+
+    while (x--) {
+      if (back_stack.size() > 1) {
+        forward_stack.push(back_stack.top());
+        back_stack.pop();
+      }
     }
     return back_stack.top();
   }
 
   string forward(int steps) {
-    while (steps-- and forward_stack.size()) {
+    int x = forward_stack.size();
+    if (x >= steps)
+      x = steps;
+
+    while (x-- and forward_stack.size()) {
       back_stack.push(forward_stack.top());
       forward_stack.pop();
     }

@@ -8,7 +8,20 @@ public:
 
   void visit(string url) {
     back_stack.push(url);
-    forward_stack = stack<string>();
+
+    // For case:
+
+    // browserHistory.visit("linkedin.com");
+    // browserHistory.forward(2);
+    // You are in "linkedin.com", you cannot move forward any steps.
+
+    // So in this case, I have youtube.com in my forward_stack but I need to
+    // clear the forward_stack, else I will get youtube.com which is WRONG
+    // because I have LinkedIn as the most recent visited website.
+
+    while (!forward_stack.empty()) {
+      forward_stack.pop();
+    }
   }
 
   string back(int steps) {

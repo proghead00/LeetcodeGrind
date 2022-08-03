@@ -30,6 +30,7 @@ public:
       x = steps;
 
     while (x--) {
+      // There must be at least ONE page available in the back_stack.
       if (back_stack.size() > 1) {
         forward_stack.push(back_stack.top());
         back_stack.pop();

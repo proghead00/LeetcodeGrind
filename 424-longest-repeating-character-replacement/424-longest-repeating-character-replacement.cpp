@@ -15,7 +15,7 @@ public:
 
             mp[s[r]]++;
 
-            windowLength = r - l + 1;
+            windowLength = r - l + 1; // window will continue until replacements cross k
 
             // at every step I increase r, so rightwise it increases
             // I will increase l when I find windowLength - mxFreq crosses k

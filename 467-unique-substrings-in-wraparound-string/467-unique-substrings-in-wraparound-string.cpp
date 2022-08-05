@@ -4,11 +4,12 @@ public:
     int findSubstringInWraproundString(string p) {
         unordered_map<char, int> mp;
 
-        int streak = 1;
+        int streak = 0;
 
         for (int i = 0; i < p.size(); i++) {
 
             // duplicate found
+            // DONT DO THIS:
             // if (mp.count(p[i])) streak = 1;
 
             // contiguous

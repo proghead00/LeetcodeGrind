@@ -17,7 +17,7 @@ public:
 
     long long ans = 0;
     for (int i = 0; i < nums.size(); i++) {
-      ans += i - mp[i - nums[i]]; // taking upto i, so I need to subtract the number of times we have seen the number before
+      ans += i - mp[i - nums[i]]; // taking upto i, so I need to substract the number of times we have seen the number before
       mp[i - nums[i]]++;
     }
 

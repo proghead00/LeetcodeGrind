@@ -18,7 +18,7 @@ public:
 
   int reachableNodes(int n, vector<vector<int>> &edges, vector<int> &restricted) {
 
-    //  I made a mistake of not taking each element as a reference, hence graph won't be cleared
+    //  I made a mistake during ther contest of not taking each element as a reference, hence graph won't be cleared
     for (auto &g : gr) g.clear();
 
     memset(vis, 0, sizeof(vis));

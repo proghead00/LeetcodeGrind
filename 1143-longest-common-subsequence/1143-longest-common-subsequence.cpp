@@ -8,28 +8,25 @@ public:
     vector<vector<int>> dp(sz1 + 1, vector<int>(sz2 + 1, 0));
 
     /*
-     form the base case
-      loop i, j in opposite fashion since we are changing a top-down to bottom-up
-      copy the recurrence
-
-      base case
-      if (i == 0 or j == 0) return 0;
-      NB: Here, OR signifies that if i==0 j can be anything in it's range and vice versa
+      1. loop i, j
+      2. form the base case
+      3. copy the recurrence
     */
 
 
-    // if i == 0 ==> put 0 in ith (row) and j can be anything
-    // return 0, so the value should be 0
-
-    // loop starts from 1, since 0th ones are filled
+    // start from 1 since we'd take out the character with i-1, j-1
     for (int i = 1; i <= sz1; i++) {
       for (int j = 1; j <= sz2; j++) {
 
-        // base case
+        // 1. recursive base case:
+        //    if (i == 0 or j == 0) return 0;
+
+        // converting base case to tabulated version:
         if (i == 0 or j == 0) dp[i][j] = 0;
 
         else {
 
+          // 3. copying the recurrence in tabulated form
           if (s1[i - 1] == s2[j - 1])  dp[i][j] = 1 + dp[i - 1][j - 1];
           else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
 

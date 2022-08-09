@@ -1,24 +1,24 @@
 class Solution {
 public:
-  int real(string &s1, string &s2, int n, int m, vector<vector<int>> &dp) {
-    if (dp[n][m] != -1)
-      return dp[n][m];
 
-    if (!n or !m)
-      dp[n][m] = 0;
-    else {
-      if (s1[n - 1] == s2[m - 1])
-        dp[n][m] = 1 + real(s1, s2, n - 1, m - 1, dp);
-      else
-        dp[n][m] = max(real(s1, s2, n - 1, m, dp), real(s1, s2, n, m - 1, dp));
-    }
-    return dp[n][m];
+  int help(string &s1, string &s2, int i, int j,  vector<vector<int>> &dp) {
+
+    if (i == 0 or j == 0) return 0;
+
+    if (dp[i][j] != -1) return dp[i][j];
+
+    if (s1[i - 1] == s2[j - 1]) return dp[i][j] = 1 + help(s1, s2, i - 1, j - 1, dp);
+
+    else return dp[i][j] = max(help(s1, s2, i - 1, j, dp), help(s1, s2, i, j - 1, dp));
+
   }
 
-  int longestCommonSubsequence(string s1, string s2) {
-    int n = s1.size();
-    int m = s2.size();
-    vector<vector<int>> dp(n + 1, vector<int>(m + 1, -1));
-    return real(s1, s2, n, m, dp);
+  int longestCommonSubsequence(string text1, string text2) {
+    int sz1 = text1.size();
+    int sz2 = text2.size();
+
+    vector<vector<int>> dp(sz1 + 1, vector<int>(sz2 + 1, -1));
+
+    return help(text1, text2, text1.size(), text2.size(), dp);
   }
 };

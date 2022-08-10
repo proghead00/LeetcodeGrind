@@ -1,6 +1,5 @@
 class Solution {
-  //   int dp[501][501];
-
+ 
 public:
   int help(string &s1, int n, string &s2, int m, vector<vector<int>> &dp) {
     if (n == 0)
@@ -18,9 +17,10 @@ public:
   }
 
   int minDistance(string word1, string word2) {
-    // memset(dp, -1, sizeof(dp));
-    vector<vector<int>> dp(word1.size() + 1, vector<int>(word2.size() + 1, -1));
-    int lcs = help(word1, word1.size(), word2, word2.size(), dp);
-    return word1.size() + word2.size() - 2 * lcs;
+     vector<vector<int>> dp(word1.size() + 1, vector<int>(word2.size() + 1, -1));
+    
+     int lcs = help(word1, word1.size(), word2, word2.size(), dp);
+    
+     return (word1.size() - lcs) + (word2.size() - lcs);
   }
 };

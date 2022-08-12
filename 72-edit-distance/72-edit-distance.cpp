@@ -1,34 +1,31 @@
 class Solution {
 public:
-  int helper(string &s1, string &s2, int n, int m, vector<vector<int>> &dp) {
-    if (dp[n][m] != -1)
-      return dp[n][m];
 
-    if (!n)
-      return dp[n][m] = m;
-    if (!m)
-      return dp[n][m] = n;
-
-    // s1 = satur
-    // s2 = sun
-    // insert => satur(n), su(n) => n, m-1
-    // delete => satur, sun => n-1, m
-    // replace => satun, sun => n-1, m-1
-    if (s1[n - 1] == s2[m - 1])
-      return dp[n][m] = helper(s1, s2, n - 1, m - 1, dp);
-
-    int ins = helper(s1, s2, n - 1, m, dp);
-    int del = helper(s1, s2, n, m - 1, dp);
-    int rep = helper(s1, s2, n - 1, m - 1, dp);
-    return dp[n][m] = 1 + min(ins, min(del, rep));
-  }
-    
-  int minDistance(string str1, string str2) {
+  int minDistance(string s1, string s2) {
     // write you code here
-    int n = str1.size();
-    int m = str2.size();
-    vector<vector<int>> dp(n + 1, vector<int>(m + 1, -1));
+    int n = s1.size();
+    int m = s2.size();
+    vector<vector<int>> dp(n + 1, vector<int>(m + 1, 0));
 
-    return helper(str1, str2, n, m, dp);
+    for (int i = 0; i <= n; i++) {
+      for (int j = 0; j <= m; j++) {
+        if (i == 0) dp[i][j] = j;
+        else if (j == 0) dp[i][j] = i;
+
+        else {
+          if (s1[i - 1] == s2[j - 1])
+            dp[i][j] = dp[i - 1][j - 1];
+
+          else {
+            int ins = dp[i - 1][j];
+            int del = dp[i][j - 1];
+            int rep = dp[i - 1][j - 1];
+            dp[i][j] = 1 + min(ins, min(del, rep));
+          }
+        }
+      }
+    }
+
+    return dp[n][m];
   }
 };

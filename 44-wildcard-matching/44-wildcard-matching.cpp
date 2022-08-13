@@ -16,10 +16,10 @@ public:
 
         if (dp[i][j] != -1)
             return dp[i][j];
-        if (p[i] == s[j] || p[i] == '?')
+        if (p[i] == s[j] or p[i] == '?')
             return dp[i][j] = helper(i - 1, j - 1, p, s, dp);
         if (p[i] == '*')
-            return dp[i][j] = helper(i - 1, j, p, s, dp) || helper(i, j - 1, p, s, dp);
+            return dp[i][j] = helper(i - 1, j, p, s, dp) or helper(i, j - 1, p, s, dp);
         return dp[i][j] = false;
     }
 

@@ -1,31 +1,58 @@
-
 class Solution {
 public:
 
+  // int dp[2001][2001];
 
-    bool helper(int i, int j, string &p, string &s, vector<vector<int>> &dp) {
-        if (i < 0 and j < 0) return true;
-        if (i < 0 and j >= 0) return false;
-        if (j < 0 and i >= 0) {
-            for (int k = 0; k <= i; ++k) {
-                if (p[k] != '*')
-                    return false;
-            }
-            return true;
-        }
+  bool help(string &s, string &p, int idx_s, int idx_p, vector<vector<int>> &dp) {
 
-        if (dp[i][j] != -1)
-            return dp[i][j];
-        if (p[i] == s[j] or p[i] == '?')
-            return dp[i][j] = helper(i - 1, j - 1, p, s, dp);
-        if (p[i] == '*')
-            return dp[i][j] = helper(i - 1, j, p, s, dp) or helper(i, j - 1, p, s, dp);
-        return dp[i][j] = false;
+    // base conditions:
+    if (idx_p < 0 and idx_s < 0) return true;
+
+    if (idx_s >= 0 and idx_p < 0) return false; // string's left, but there's no pattern left
+
+    if (idx_s < 0 and idx_p >= 0) {
+      for (int i = 0; i <= idx_p; i++) if (p[i] != '*') return false; // since only * can match with empty sequence
+
+      //NB: I missed out to return true previusly, hence -ve index threw obvious errors:
+      return true;
     }
 
-    bool isMatch(string s, string p) {
-        int m = s.size(), n = p.size();
-        vector<vector<int>> dp(n, vector<int> (m, -1));
-        return helper(n - 1, m - 1, p, s, dp);
+
+    if (dp[idx_s][idx_p] != -1) return dp[idx_s][idx_p];
+
+
+    // recurrence:
+
+    // chars match
+    if (s[idx_s] == p[idx_p] or p[idx_p] == '?') return dp[idx_s][idx_p] = help(s, p, idx_s - 1, idx_p - 1, dp);
+
+
+    // * is encountered
+    if (p[idx_p] == '*') {
+
+      // option 1: use * as nothing
+      bool op1 = help(s, p, idx_s, idx_p - 1, dp);
+
+      // option 2: use * as a matching ==> fix * and move the other string
+      bool op2 = help(s, p, idx_s - 1, idx_p, dp);
+
+      return dp[idx_s][idx_p] = op1 or op2;
     }
+
+    else return dp[idx_s][idx_p] = false;
+
+  }
+
+
+  bool isMatch(string s, string p) {
+
+    // p will be the pattern, having ?, *...
+
+    // memset(dp, -1, sizeof(dp));
+
+    vector<vector<int>> dp(s.size(), vector<int> (p.size(), -1));
+
+    return help(s, p, s.size() - 1, p.size() - 1, dp);
+
+  }
 };

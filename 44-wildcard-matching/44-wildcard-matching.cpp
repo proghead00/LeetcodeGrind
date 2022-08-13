@@ -1,63 +1,61 @@
 class Solution {
 public:
-
-  int dp[2001][2001];
-
-  bool help(string &s, string &p, int idx_s, int idx_p) {
-
-    // base conditions:
-    if (idx_p < 0 and idx_s < 0) return true;
-
-    if (idx_s >= 0 and idx_p < 0) return false; // string's left, but there's no pattern left
-
-    if (idx_s < 0 and idx_p >= 0) {
-      for (int i = 0; i <= idx_p; i++) if (p[i] != '*') return false; // since only * can match with empty sequence
-
-      //NB: I missed out to return true previusly, hence -ve index threw obvious errors:
-      return true;
-    }
-
-
-    if (dp[idx_s][idx_p] != -1) {
-      if (dp[idx_s][idx_p] == 1) return true;
-      else return false;
-    }
-
-
-    // recurrence:
-
-    // chars match
-    if (s[idx_s] == p[idx_p] or p[idx_p] == '?') return dp[idx_s][idx_p] = help(s, p, idx_s - 1, idx_p - 1);
-
-
-    // * is encountered
-    if (p[idx_p] == '*') {
-      // option 1: use * as nothing
-      bool op1 = help(s, p, idx_s, idx_p - 1);
-
-      // option 2: use * as a matching ==> fix * and move the other string
-      bool op2 = help(s, p, idx_s - 1, idx_p);
-
-      return dp[idx_s][idx_p] = op1 or op2;
-    }
-
-    else return dp[idx_s][idx_p] = false;
-
-  }
-
-
   bool isMatch(string s, string p) {
 
-    // p will be the pattern, having ?, *...
+    int patSize = p.size();
+    int ogSize = s.size();
 
-    // memset(dp, -1, sizeof(dp));
+    vector<vector<bool>> dp(patSize + 1, vector<bool>(ogSize + 1, false));
 
-    for (int i = 0; i < s.size(); i++) {
-      for (int j = 0; j < p.size(); j++)
-        dp[i][j] = -1;
+    // i --> idx_p (patSize)
+    // j --> idx_s (ogSize)
+
+    // we can fix * in p and check for other characters in s, hence
+    // outer-looping wrt p
+
+    //------------------------------------------------------
+    // 1)  base case:
+
+    // i==0, j==0 --> true
+    dp[0][0] = true;
+
+    // i==0 and j>0 --> false [j is non-zero so start from 1]
+    for (int j = 1; j <= ogSize; j++) {
+      // put i=0 in dp[i][j]
+      dp[0][j] = false;
     }
-    
-    return help(s, p, s.size() - 1, p.size() - 1);
 
+    // i>0 and j==0 [i is non-zero so start from 1]
+    for (int i = 1; i <= patSize; i++) {
+      bool f = true;
+      for (int k = 1; k <= i; k++) {
+        if (p[k - 1] != '*') {
+          f = false;
+          break;
+        }
+      }
+      // put j=0 in dp[i][j]
+      dp[i][0] = f;
+    }
+    //------------------------------------------------------
+
+    // 2)  recursive case:
+
+    for (int i = 1; i <= patSize; i++) {
+      for (int j = 1; j <= ogSize; j++) {
+
+        if (s[j - 1] == p[i - 1] or p[i - 1] == '?')
+          dp[i][j] = dp[i - 1][j - 1];
+
+        else {
+          if (p[i - 1] == '*')
+            dp[i][j] = dp[i - 1][j] or dp[i][j - 1];
+          else
+            dp[i][j] = false;
+        }
+      }
+    }
+
+    return dp[patSize][ogSize];
   }
 };

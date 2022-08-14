@@ -20,10 +20,6 @@ public:
         reverse(temp.begin() + s, temp.begin() + i + 1);
     }
 
-    string ans;
-    for (char c : temp) {
-      ans.push_back(c);
-    }
-    return ans;
+    return temp;
   }
 };

@@ -1,7 +1,7 @@
 class Solution {
 public:
   int ladderLength(string &beginWord, string &endWord, vector<string> &wordList) {
-    set<string> setList(wordList.begin(), wordList.end());
+    unordered_set<string> setList(wordList.begin(), wordList.end());
 
     if (!setList.count(endWord)) return 0;  // if destination endWord is not present in our list, return 0
 

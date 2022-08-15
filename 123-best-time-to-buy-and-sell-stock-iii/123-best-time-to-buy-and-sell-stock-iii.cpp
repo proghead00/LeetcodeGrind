@@ -1,45 +1,40 @@
 class Solution {
 public:
-
-  // states changing:
-  // idx, k(2,1,0), buy(0,1)
-  int dp[10001][3][2];
-
-  int help(int idx, int n, int k, int buy, vector<int>& prices, vector<vector<vector<int>>> &dp) {
-
-    if (idx == n or k == 0) return 0;
-
-    // A transaction happens when I sell the stock that I have bought
-    // Hence, k - 1 only when I sell it (one transcaction)
-
-    if (dp[idx][k][buy] != -1) return dp[idx][k][buy];
-
-    int profit = 0;
-
-    if (buy == 1) {
-      // buying
-      int buying = -prices[idx] + help(idx + 1, n, k, 0, prices, dp);
-      int skip = help(idx + 1, n, k, 1, prices, dp);
-      profit = max(buying, skip);
-    }
-
-    else {
-      // selling
-      int sell =  prices[idx] + help(idx + 1, n, k - 1, 1, prices, dp);
-      int skip = help(idx + 1, n, k, 0, prices, dp);
-      profit = max(sell, skip);
-    }
-
-    return dp[idx][k][buy] = profit;
-  }
-
   int maxProfit(vector<int>& prices) {
     // states changing:
-    // idx, k(2,1,0), buy(0,1)
-    vector<vector<vector<int>>> dp(prices.size(),
-                                   vector<vector<int>>
-                                   (3, vector<int>(2, -1)));
+    // i, k(2,1,0), buy(0,1)
 
-    return help(0, prices.size(), 2, 1, prices, dp);
+    int n = prices.size();
+    vector<vector<vector<int>>> dp(n + 1,
+                                   vector<vector<int>>
+                                   (3, vector<int>(2, 0)));
+
+    int profit = 0;
+    int buy = 1, k = 2;
+
+    for (int i = n - 1; i >= 0 ; i--) {
+      for (int k = 0; k < 3; k++) {
+        for (int buy = 0; buy < 2; buy++) {
+          if (i == n or k == 0) dp[i][k][buy] = 0;
+          else {
+            if (buy == 1) {
+              // buying
+              int buying = -prices[i] + dp[i + 1][k][0];
+              int skip = dp[i + 1][k][1];
+              profit = max(buying, skip);
+            }
+            else {
+              // selling
+              int sell =  prices[i] + dp[i + 1][k - 1][1];
+              int skip = dp[i + 1][k][0];
+              profit = max(sell, skip);
+            }
+            dp[i][k][buy] = profit;
+          }
+        }
+      }
+    }
+    return dp[0][k][buy];
   }
+
 };

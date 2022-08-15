@@ -34,6 +34,8 @@ public:
   }
 
   int maxProfit(vector<int>& prices) {
+    // states changing:
+    // idx, k(2,1,0), buy(0,1)
     vector<vector<vector<int>>> dp(prices.size(),
                                    vector<vector<int>>
                                    (3, vector<int>(2, -1)));

@@ -12,7 +12,7 @@ public:
     int profit = 0;
     int buy = 1; int cnt = k;
 
-    for (int i = n - 1; i >= 0 ; i--) {
+    for (int i = n; i >= 0 ; i--) {
       for (int cnt = 0; cnt <= k; cnt++) {
         for (int buy = 0; buy < 2; buy++) {
           if (i == n or cnt == 0) dp[i][cnt][buy] = 0;

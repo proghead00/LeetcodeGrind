@@ -1,34 +1,42 @@
 class Solution {
 public:
-// states changing: buy, idx, cnt
-  int dp[2][1001][101];
+  int maxProfit(int k, vector<int>& prices) {
+    // states changing:
+    // i, cnt, buy(0,1)
 
-  int help(int k, vector<int> &prices, int buy, int idx, int cnt) {
-    if (idx == prices.size() or cnt == k) {
-      return 0;
-    }
-
-    if (dp[buy][idx][cnt] != -1) return dp[buy][idx][cnt];
+    int n = prices.size();
+    vector<vector<vector<int>>> dp(n + 1,
+                                   vector<vector<int>>(k + 1,
+                                       vector<int>(2, 0)));
 
     int profit = 0;
-    if (buy == 1) {
-      // buy or skip => take max of them
-      int take = -prices[idx] + help(k, prices, 0, idx + 1, cnt);
-      int skip = help(k, prices, 1 , idx + 1, cnt);
-      profit = max(take, skip);
-    }
-    else {
-      // sell or skip
-      int take = prices[idx] + help(k, prices, 1, idx + 1, cnt + 1);
-      int skip = help(k, prices, 0, idx + 1, cnt);
-      profit = max(take, skip);
+    int buy = 1; int cnt = k;
+
+    for (int i = n - 1; i >= 0 ; i--) {
+      for (int cnt = 0; cnt <= k; cnt++) {
+        for (int buy = 0; buy < 2; buy++) {
+          if (i == n or cnt == 0) dp[i][cnt][buy] = 0;
+          else {
+            if (buy == 1) {
+              // buying
+              int buying = -prices[i] + dp[i + 1][cnt][0];
+              int skip = dp[i + 1][cnt][1];
+              profit = max(buying, skip);
+            }
+            else {
+              // selling
+              int sell =  prices[i] + dp[i + 1][cnt - 1][1];
+              int skip = dp[i + 1][cnt][0];
+              profit = max(sell, skip);
+            }
+            dp[i][cnt][buy] = profit;
+          }
+        }
+      }
     }
 
-    return dp[buy][idx][cnt] = profit;
+    // NB: we are coming from the end, hence 0th
+    return dp[0][cnt][buy];
   }
 
-  int maxProfit(int k, vector<int>& prices) {
-    memset(dp, -1, sizeof(dp));
-    return help(k, prices, 1, 0, 0);
-  }
 };

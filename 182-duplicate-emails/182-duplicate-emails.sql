@@ -1,6 +1,6 @@
 # Write your MySQL query statement below
 
-SELECT email 
+SELECT email AS Email
 FROM(
     SELECT email, COUNT(email) AS cnt
     FROM Person

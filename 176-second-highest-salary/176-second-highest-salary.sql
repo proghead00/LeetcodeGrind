@@ -7,7 +7,7 @@ SELECT IFNULL(
     WHERE 1 = (
               SELECT COUNT(DISTINCT salary) # there should not be space b/w count and the parenthesis
               FROM Employee e2
-              WHERE e1.salary < e2.salary
+              WHERE e1.salary < e2.salary # check the condition!!
               )
     ),
     

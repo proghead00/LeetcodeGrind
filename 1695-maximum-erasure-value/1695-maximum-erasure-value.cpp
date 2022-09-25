@@ -4,7 +4,7 @@ public :
         int n = size(nums), curSum = 0;
         int ans = 0, l = 0, r = 0;
 
-        unordered_map<int, bool> mp;
+        unordered_map<int, int> mp;
 
         while (r < n) {
             while (mp[nums[r]]) {
@@ -13,7 +13,9 @@ public :
             }
 
             curSum += nums[r];
-            mp[nums[r++]] = true;
+            mp[nums[r]] = true;
+            r++;
+            
             ans = max(ans, curSum);
         }
 

@@ -7,7 +7,10 @@ public:
         int ans = 0;
 
         while (r < s.size()) {
-            if (mp.count(s[r]) and mp[s[r]] >= l and mp[s[r]] <= r) l = mp[s[r]] + 1;
+            if (mp.count(s[r]) and mp[s[r]] >= l and mp[s[r]] <= r) 
+                l = mp[s[r]] + 1; // dvdf --> when r reaches second 'd', l should move to 'v' 
+            
+            
             
             mp[s[r]] = r;
             ans = max(ans, r - l + 1);

@@ -10,13 +10,12 @@ public:
             if (mp.count(s[r]) and mp[s[r]] >= l and mp[s[r]] <= r) 
                 l = mp[s[r]] + 1; // dvdf --> when r reaches second 'd', l should move to 'v' 
             
-            
-            
             mp[s[r]] = r;
             ans = max(ans, r - l + 1);
             
-            cout << l << " " << r << " " << endl;
-            cout << ans << " " << endl;
+            // cout << l << " " << r << " " << endl;
+            // cout << ans << " " << endl;
+            
             r++;
         }
         

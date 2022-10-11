@@ -21,15 +21,15 @@ public:
             if (mid == 0) {
                 if (mat[0][idx] > mat[1][idx])
                     return {0, idx};
-                // else
-                //     return {1, idx};
+                else
+                    return {1, idx};
             }
 
             else if (mid == mat.size() - 1) {
                 if (mat[mid][idx] > mat[mid - 1][idx])
                     return {mid, idx};
-                // else
-                //     return {mid - 1, idx};
+                else
+                    return {mid - 1, idx};
             }
 
             else if (mat[mid][idx] > mat[mid + 1][idx] and mat[mid][idx] > mat[mid - 1][idx])

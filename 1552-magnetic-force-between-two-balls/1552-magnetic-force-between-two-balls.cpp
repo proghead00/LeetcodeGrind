@@ -10,7 +10,7 @@ public:
                 cnt++; // could place another ball
                 prev = position[i];
                 
-                if(cnt == m) return true;
+                if(cnt == m) return true; // we could place all the balls at mid distances
             }
         }
         

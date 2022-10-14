@@ -5,12 +5,17 @@ public:
         int cnt = 1;
         int prev = position[0];
         for (int i = 1 ; i < position.size() ; i++) {
+
             if (position[i] - prev >= mid) {
-                cnt++;
+                cnt++; // could place another ball
                 prev = position[i];
+                
+                if(cnt == m) return true;
             }
         }
-        return cnt >= m;
+        
+        if(cnt < m) return false;
+        return false;
     }
 
     int maxDistance(vector<int>& position, int m) {

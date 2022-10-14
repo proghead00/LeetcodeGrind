@@ -22,7 +22,8 @@ public:
                 if (!vis[xx][yy]) {
                     if (abs(heights[xx][yy] - heights[x][y]) <= mid) {
 
-                        if (xx == heights.size() - 1 and yy == heights[0].size() - 1) return true;
+                        if (xx == heights.size() - 1 and yy == heights[0].size() - 1) 
+                            return true;
 
                         if (help(heights, mid, xx, yy)) return true;
                     }

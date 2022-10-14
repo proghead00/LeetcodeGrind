@@ -14,7 +14,6 @@ public:
             }
         }
         
-        if(cnt < m) return false;
         return false;
     }
 

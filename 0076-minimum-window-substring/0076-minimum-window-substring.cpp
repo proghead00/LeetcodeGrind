@@ -2,7 +2,6 @@ class Solution {
 public:
     string minWindow(string s, string t) {
 
-
         if (s.size() == 0 or t.size() == 0 or s.size() < t.size())
             return "";
 
@@ -28,8 +27,9 @@ public:
 
                 v[s[l]]++; // adding back the char since we are moving past it
 
-                // after restoring the char, if the value is greater than 0, it means that it was a part of our probable answer window
-                // so we redcuce cnt since we lost one char that might have been a part of our ans
+                // after restoring the char, if the value is greater than 0
+                // it means that it was a part of our probable answer window
+                // so we redcuce cnt since we lost one char from the left that might have been a part of our ans
                 if (v[s[l]] > 0) cnt--;
 
                 l++;
@@ -38,9 +38,7 @@ public:
             r++;
         }
 
-        if (len == INT_MAX) return "";
-
-        return s.substr(startIdx, len);
+        return (len == INT_MAX) ? "" : s.substr(startIdx, len);
 
     }
 };

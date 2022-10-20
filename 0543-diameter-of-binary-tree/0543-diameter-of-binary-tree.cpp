@@ -17,6 +17,6 @@ public:
         if (!root) return 0;
         int ans = INT_MIN;
         int x = help(root, ans);
-        return ans - 1;
+        return ans - 1; // since ans gives # nodes but we gotta find the edges
     }
 };

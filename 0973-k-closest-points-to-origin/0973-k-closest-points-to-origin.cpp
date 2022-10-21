@@ -10,6 +10,7 @@ public:
 
             pq.push({x * x + y * y, {x, y}});
            
+            // CHECK THIS POP CONDITION AFTER PUSHING 
             if (pq.size() > k) {
                 pq.pop();
             }

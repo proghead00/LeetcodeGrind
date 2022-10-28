@@ -6,12 +6,11 @@ public:
 
 		queue<pair<int, pair<int, int>>> q; // {dist, {x, y}}
 
-
 		int n = grid.size();
 
 		vector<vector<int>> dist(n, vector<int>(n, 1e9));
 
-		q.push({1, {0, 0}});
+		q.push({1, {0, 0}}); // push 1 instead of 0 since we are including that cost (according to question)
 		dist[0][0] = 1;
 
 		vector<vector<int>> dd = {

@@ -1,36 +1,39 @@
 class Solution {
 public:
+    int partition(vector<int> &nums, int l, int h) {
 
-	int partition(vector<int> &nums, int l, int r) {    
-		int pivot = nums[r];
-		int i = l - 1;
-		for (int j = l; j < r; j++) {
-			if (nums[j] >= pivot) {
-				i++;
-				swap(nums[i], nums[j]);
+        int pivot = nums[h];
+        int i = l - 1;
 
-			}
-		}
-		swap(nums[i + 1], nums[r]);
-		return i + 1;
-	}
+        for (int j = l; j < h; j++) {
+            if (nums[j] >= pivot) {
+                i++;
+                swap(nums[i], nums[j]);
+            }
+        }
 
-	int quickSelect(vector<int> &nums, int l, int r, int k) {
+        swap(nums[i + 1], nums[h]);
+        return i + 1;
+    }
 
-		int p = partition(nums, l, r);
+    int quickSelect(vector<int> &nums, int l, int h, int k) {
 
-		if (p + 1 == k) // (p + 1)th largest element is found
-			return nums[p];
+        int pv = partition(nums, l, h);
 
-		if (p + 1 > k)
-			return quickSelect(nums, l, p - 1, k);
+        if (pv + 1 == k) return nums[pv];
 
-		else
-			return quickSelect(nums, p + 1, r, k);
+        // if (k < pv + 1), it means the number at k is bigger
+        // eg: pv + 1 = 4 (4th largest) and k = 2 (2nd largest needed)
+        // we know that the larger numbers are on the right half:
 
-	}
+        if (k < pv + 1) return quickSelect(nums, l, pv - 1, k);
 
-	int findKthLargest(vector<int>& nums, int k) {
-		return quickSelect(nums, 0, nums.size() - 1, k);
-	}
+        else return quickSelect(nums, pv + 1, h, k);
+    }
+
+
+    int findKthLargest(vector<int>& nums, int k) {
+        return quickSelect(nums, 0, nums.size() - 1, k);
+    }
+
 };
